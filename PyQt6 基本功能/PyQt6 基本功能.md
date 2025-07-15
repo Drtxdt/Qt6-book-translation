@@ -6,11 +6,11 @@
 
 请以提供的代码为指导，但还请随时自己动手尝试。 这就是学习这些代码如何工作的最好方法。
 
-![tips](.\tips.png)
+![tips](tips.png)
 
 > 在我们开始之前，您需要安装一个可以正常运行的 PyQt6。如果您还没有安装，请查看 附录A：安装 PyQt6。
 
-![alert](.\alert.png)
+![alert](alert.png)
 
 > 不要忘记下载本书的源代码[http://www.pythonguis.com/d/pyqt6-source.zip](http://www.pythonguis.com/d/pyqt6-source.zip)!
 
