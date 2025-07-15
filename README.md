@@ -19,6 +19,15 @@ cd Qt6-book-translation
 
 ## 有关版权
 
+本翻译采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 协议：
+- ✅ 允许自由分享、复制
+- ✅ 允许修改和创作衍生作品
+- ⚠️ 必须署名原作者及译者
+- ❌ 禁止商业用途
+- ⚠️ 衍生作品必须采用相同授权
+
+> 📌 完整条款详见 [LICENSE](LICENSE) 文件
+
 目前我们已经向作者发出电子邮件进行申请授权，我们将实时更新进度
 
 还请各位支持一下原书 [原书指路](https://www.pythonguis.com/pyqt6-book/)
