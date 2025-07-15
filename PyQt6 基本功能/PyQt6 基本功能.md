@@ -18,7 +18,7 @@
 
 让我们来创建第一个应用程序！首先，创建一个新的 Python 文件——您可以随意将其命名为您喜欢的任何名字（例如：`myapp.py`），然后将它保存在一个可以访问的地方。 我们将在这个文件中编写我们的简单应用程序。
 
-![tips](.\tips.png)
+![tips](tips.png)
 
 > 我们将在此文件中进行编辑，您可能想要回到代码的早期版本，所以记得定期备份。
 
@@ -65,7 +65,7 @@ python3 MyApp.py
 > 🚀**运行它吧!** 现在您将看到您的窗口。 Qt 会自动创建一个窗口，您可以拖动它并调整其大小,就像您见过的其他窗口那样。
 
 您看到的内容取决于运行这个示例的平台。下图展示了在 *Windows*、*macOS* 和 *Linux (Ubuntu）*上显示的窗口。
-![Figure3](.\Figure3.png)
+![Figure3](Figure3.png)
 
 > 图三: 我们分别在*Windows*、*macOS* 和 *Linux (Ubuntu）*上显示的窗口
 
@@ -81,7 +81,7 @@ from PyQt6.QtWidgets import QApplication, QWidget
 
 Qt 的主要模块包括 `QtWidgets`、`QtGui` 和 `QtCore`。
 
-![tips](.\tips.png)
+![tips](tips.png)
 
 > 您可以使用 `from <module> import *`，但这种全局导入在 Python 中通常是不受欢迎的，所以在这里我们将避免使用它
 
@@ -106,12 +106,12 @@ window.show()
 
 在 Qt 中，*所有* 顶层部件都是窗口，也就是说，它们没有父控件，也不嵌套在另一个控件或布局中。这意味着您可以在技术上使用任何您喜欢的控件来创建一个窗口。
 
-![caution](.\caution.png)
+![caution](caution.png)
 
 > 我看不到我的窗口!
 > 没有父类的小工具默认是不可见的。 因此，在窗口对象后，我们必须始终调用 `.show()` 来使其可见。 您可以移除 .show() 并运行应用程序，但您会无法退出！
 
-![tips](.\tips.png)
+![tips](tips.png)
 
 > 什么是窗口？
 > - 保存应用程序的用户界面
@@ -126,13 +126,13 @@ window.show()
 
 每个 Qt 应用程序的核心都是 `QApplication` 类。 每个应用程序需要一个，且只需要一个 `QApplication` 对象才可以运行。 该对象包含应用程序的**事件循环**——管理所有图形用户界面交互的核心循环。
 
-![figure4](.\figure4.png)
+![figure4](figure4.png)
 
 > 图4:Qt中的事件循环
 
 与应用程序的每次交互——无论是按键、点击鼠标还是移动鼠标——都会产生一个事件，该事件被置于**事件队列**中。在事件循环中，每次迭代都会对队列进行检查，如果发现正在等侯的事件，程序就会将事件和控制权传递给特定的事件处理程序。事件处理程序会处理事件，然后将控制权传递回事件循环，等待处理更多事件。 每个应用程序只能由**一个**事件循环
 
-![tips](.\tips.png)
+![tips](tips.png)
 
 > 有关`QApplication` 类……
 >
@@ -220,7 +220,7 @@ app.exec()
 > 2. 我们必须始终调用 `super()` 类的 `__init__`方法。
 > 3. 使用 `.setCentralWidget` 在 `QMainWindow` 中放置一个控件。
 
-![tips](.\tips.png)
+![tips](tips.png)
 
 > 当您子类化一个 Qt 类时，您必须始终调用`super`函数`__init__`以便 Qt 设置对象。
 
@@ -230,11 +230,11 @@ app.exec()
 
 > 🚀**运行它吧！**您会再一次看到您的主窗口，但是这次`QPushButton`控件会显示在中央。按下按钮，但是什么也不会发生，我们将会稍后来调整
 
-![Figure5](./Figure5.png)
+![Figure5](Figure5.png)
 
 > 图五：显示在*Windows*，*macOS*和*Linux*上面的含有一个`QPushButton`的`QMainWindow`
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 渴望使用控件？
 > 我们稍后会详细介绍更多控件，但如果您没有耐心，想先睹为快的话，可以看看[QWidget 文档](http://doc.qt.io/qt-5/widget-classes.html#basic-widget-classes)。 尝试将不同的控件添加到您的窗口！
@@ -286,13 +286,13 @@ app.exec()
 
 除了可以调用 `.setFixedSize()` 方法外，您还可以调用 `.setMinimumSize()` 和`.setMaximumSize() `方法分别设置窗口的最小和最大尺寸。您不妨亲自尝试一下！
 
-![information](./information.png)
+![information](information.png)
 
 > 您可以用在任意控件中使用这种方法
 
 在本节中，我们介绍了 `QApplication` 类、`QMainWindow` 类、事件循环，并尝试将一个简单的控件添加到窗口中。在下一节中，我们将了解 Qt 为控件和窗口之间以及控件和窗口与您自己的代码之间的通信提供的机制。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 请将文件的副本保存为 `myapp.py`，我们稍后还会用到它。
 
@@ -304,7 +304,7 @@ app.exec()
 
 除了通知发生的事件外，信号还可以发送数据，并提供有关发生的事件的更多背景信息。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 >  您还可以创建自己的自定义信号，我们将在之后的“32. 扩展信号”中进行探讨。
 
@@ -312,7 +312,7 @@ app.exec()
 
 让我们来看看 Qt 信号的基本知识以及如何使用它们将控件连接起来以便在应用程序中实现各种功能。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 请加载一份新的 `myapp.py` 文件用于本节内容并以新名称保存
 
@@ -622,7 +622,7 @@ app.exec()
 
 首先，在设置窗口标题时，`windowTitleChanged` 信号**并不总是**被发出。只有当新标题与之前的标题**不同**时，该信号才会被触发。如果您多次设置相同的标题，该信号只会第一次被触发。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 请务必仔细检查信号触发的条件，以免在应用程序中使用时出现意外。
 
@@ -682,7 +682,7 @@ app.exec()
 
 > 🚀**运行它吧！**请在上方的方框中键入一些文字，您就会看到它立即出现在标签上。
 
-![Figure7](./Figure7.png)
+![Figure7](Figure7.png)
 
 > 图七：任何输入进来的文本都会在标签上立即显示
 
@@ -696,7 +696,7 @@ app.exec()
 
 > 🚀**运行它吧！**您将会看到一个包含多个交互式控件的窗口。
 
-![Figure8](./Figure8.png)
+![Figure8](Figure8.png)
 
 > 图八：在*Windows*，*macOS* 和 *Linux(Ubuntu)* 上面展示的控件应用程序的例子
 
@@ -723,7 +723,7 @@ app.exec()
 
 还有更多控件，但它们并不太适合在这里全部展示！完整的列表请参阅 [Qt 文档](https://doc.qt.io/qt-5/qtwidgets-module.html)。下面我们将仔细看看一些最有用的控件。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 请打开一个新的 `myapp.py` 文件并以新名称保存以完成本节内容。
 
@@ -784,11 +784,11 @@ app.exec()
 
 > 🚀**运行它吧！**调整字体参数并查看效果。
 
-![Figure9](./Figure9.png)
+![Figure9](Figure9.png)
 
 > 图九：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的 `QLabel`
 
-![tips](./tips.png)
+![tips](tips.png)
 
 Qt 命名空间 (`Qt.`) 中包含各种属性，您可以使用这些属性来定制和控制 Qt 控件。我们将在后面的 “35. 枚举和 Qt 命名空间” 中详细介绍这一点。
 
@@ -817,7 +817,7 @@ align_top_left = Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop
 
 > 🚀**运行它吧！**尝试组合不同的对齐标志并观察其对文本位置的影响。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > **Qt 标志**
 
@@ -861,13 +861,13 @@ window.show()
 app.exec()
 ```
 
-![Figure10](./Figure10.png)
+![Figure10](Figure10.png)
 
 > 图十：叫做“Otje”的猫，太可爱啦
 
 > 🚀**运行它吧！**调整窗口大小后，图像会被空白区域包围。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 没看见图片？继续往下读读看！
 
@@ -875,11 +875,11 @@ app.exec()
 
 如果你切换到上级目录（使用 `cd ..`）并再次运行脚本，文件将无法被找到，图像也无法加载。我的老天啊！
 
-![Figure11](./Figure11.png)
+![Figure11](Figure11.png)
 
 > 图十一：猫 Otje 不见了
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 这也是在从IDE运行脚本时常见的问题，因为IDE会根据当前激活的项目来设置路径。
 
@@ -924,7 +924,7 @@ app.exec()
 > 1. 当前工作目录。
 > 2. 我们的基础路径（相对于此文件）。
 
-![tips](./tips.png)
+![tips](tips.png)
 
 > 如果您现在还不完全理解，请不要担心，我们将在后面详细说明。
 
@@ -943,8 +943,483 @@ widget.setScaledContents(True)
 
 > 🚀**运行它吧！**调整窗口大小，图片就会变形来自动适应大小。
 
-![Figure12](./Figure12.png)
+![Figure12](Figure12.png)
 
 > 图十二：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面使用 `Qlabel`展示的像素图
 
 ### `QCheckBox`
+
+下一个要介绍的控件是 `QCheckBox`，顾名思义，它为用户提供了一个可选框。然而，与所有 Qt 控件一样，它也有许多可配置的选项来更改控件的行为。
+
+*Listing 17. basic/widgets_3.py*
+
+```python
+import sys
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QCheckBox, QMainWindow
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QCheckBox("This is a checkbox")
+        widget.setCheckState(Qt.CheckState.Checked)
+        
+        # 对于三态：widget.setCheckState(Qt.PartiallyChecked)
+        # 或：widget.setTristate(True)
+        widget.stateChanged.connect(self.show_state)
+        
+        self.setCentralWidget(widget)
+        
+    def show_state(self, s):
+        print(Qt.CheckState(s) == Qt.CheckState.Checked)
+        print(s)
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您将会看到一个有标签文本的复选框
+
+![Figure13](Figure13.png)
+
+> 图十三：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QCheckBox`
+
+您可以使用 `.setChecked` 或 `.setCheckState` 通过编程方式设置复选框状态。前者接受 `True` 或 `False`，分别代表已选中或未选中。但是，使用 `.setCheckState` 时，您还可以使用 `Qt.`命名空间标志指定部分选中状态。
+
+| 标志                             | 行为         |
+| -------------------------------- | ------------ |
+| `Qt.CheckState.Checked`          | 该项已选中   |
+| `Qt.CheckState.Unchecked`        | 该项未选中   |
+| `Qt.CheckState.PartiallyChecked` | 该项部分选中 |
+
+支持部分选中状态（`Qt.CheckState.PartiallyChecked`）的复选框通常被称为“三态复选框”，即既非选中也非未选中。处于此状态的复选框通常显示为灰色复选框，并常用于分层复选框布局中，其中子项与父级复选框相关联。
+
+如果您将值设置为 `Qt.CheckState.PartiallyChecked`，复选框将变为**三态**——即具有三种可能的状态。您还可以通过使用 `.setTristate(True)`来达到相同的效果
+
+![tips](tips.png)
+
+> 您可能会注意到，当脚本运行时，当前状态的编号以整数形式显示，其中已选中 = 2，未选中 = 0，部分选中 = 1。您无需记住这些值——它们只是这些相应标志的内部值。您可以通过 `state == Qt.CheckState.Checked` 来测试状态。
+
+### `QComboBox`
+
+`QComboBox` 是一个下拉列表，默认情况下处于关闭状态，需要点击箭头才能打开。您可以从列表中选择一个项目，当前选中的项目将作为标签显示在控件上。组合框适用于从长列表中选择一个选项。
+
+![information](information.png)
+
+> 您可能在文字处理应用程序中见过用于选择字体样式或字号的组合框。尽管 Qt实际上提供了一个专门用于字体选择的组合框，即 `QFontComboBox`。
+
+您可以通过向 `.addItems() `方法传递一个字符串列表来向 QComboBox 添加项。项将按您提供的顺序依次添加。
+
+*Listing 18. basic/widgets_4.py*
+
+```python
+import sys
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QComboBox, QMainWindow
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QComboBox()
+        widget.addItems(["One", "Two", "Three"])
+        
+        widget.currentIndexChanged.connect(self.index_changed)
+        widget.currentTextChanged.connect(self.text_changed)
+        
+        self.setCentralWidget(widget)
+        
+    def index_changed(self, i): # i是一个int型整数
+        print(i)
+        
+    def text_changed(self, s): # s是一个str型的字符串
+        print(s)
+        
+
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您将看到一个包含3个选项的下拉列表框。选择其中一项后，该选项将显示在输入框中。
+
+![Figure14](Figure14.png)
+
+> 图十四：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QComboBox`
+
+当当前选中的项目被更新时，会触发 `.currentIndexChanged` 信号，默认情况下会传递列表中选中项目的索引。还有一个 `.currentTextChanged` 信号，它提供当前选中项目的标签，这个通常会更加实用。
+
+`QComboBox` 也可以设置为可编辑模式，允许用户输入列表中不存在的值，并可选择将这些值插入列表或直接作为选中项使用。要启用可编辑模式，请加入这行代码：
+
+```python
+widget.setEditable(True)
+```
+
+您还可以设置标志来确定插入操作的处理方式。这些标志存储在 `QComboBox` 类本身中，具体列表如下：
+
+| 标志                                          | 行为               |
+| --------------------------------------------- | ------------------ |
+| `QComboBox.InsertPolicy.NoInsert`             | 不允许插入         |
+| `QComboBox.InsertPolicy.InsertAtTop`          | 插入为第一个项     |
+| `QComboBox.InsertPolicy.InsertAtCurrent`      | 替换当前选中的项   |
+| `QComboBox.InsertPolicy.InsertAtBottom`       | 在最后一项之后插入 |
+| `QComboBox.InsertPolicy.InsertAfterCurrent`   | 在当前项之后插入   |
+| `QComboBox.InsertPolicy.InsertBeforeCurrent`  | 在当前项之前插入   |
+| `QComboBox.InsertPolicy.InsertAlphabetically` | 按字母顺序插入     |
+
+要使用这些选项，请按以下方式应用标志：
+
+```python
+widget.setInsertPolicy(QComboBox.InsertPolicy.InsertAlphabetically)
+```
+
+您还可以通过调用 `.setMaxCount` 方法来限制盒子中允许的项目数量,例如：
+
+```python
+widget.setMaxCount(10)
+```
+
+### `QListWidget`
+
+接下来是 `QListWidget`。该控件与 `QComboBox` 类似，只是选项以可滚动列表的形式呈现。它还支持同时选择多个项目。`QListWidget` 提供了一个 `currentItemChanged` 信号，该信号发送 `QListItem`（列表控件的元素），以及一个 `currentTextChanged` 信号，该信号发送当前项目的文本。
+
+*Listing 19. basic/widgets_5.py*
+
+```python
+import sys
+
+from PyQt6.QtWidgets import QApplication, QListWidget, QMainWindow
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QListWidget()
+        widget.addItems(["One", "Two", "Three"])
+        
+        widget.currentItemChanged.connect(self.index_changed)
+        widget.currentTextChanged.connect(self.text_changed)
+        
+        self.setCentralWidget(widget)
+        
+    def index_changed(self, i): #不是索引，i 是 QListItem
+        print(i.text())
+        
+    def text_changed(self, s): # s是一个str型的字符串
+        print(s)
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您将看到相同的三个项，现在以列表形式显示。选中的项（如果有的话）将被高亮显示。
+
+![Figure15](Figure15.png)
+
+> 图十五：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QListWidget`
+
+### `QLineEdit`
+
+`QLineEdit` 控件是一个简单的单行文本编辑框，用户可以在其中输入内容。这些控件用于表单字段或没有限制有效输入列表的设置。例如，输入电子邮件地址或计算机名称时。
+
+*Listing 20. basic/widgets_6.py*
+
+```python
+import sys
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QLineEdit, QMainWindow
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QLineEdit()
+        widget.setMaxLength(10)
+        widget.setPlaceholderText("Enter your text")
+        
+        # widget.setReadOnly(True) # 取消注释该行以设置为只读模式
+        
+        widget.returnPressed.connect(self.return_pressed)
+        widget.selectionChanged.connect(self.selection_changed)
+        widget.textChanged.connect(self.text_changed)
+        widget.textEdited.connect(self.text_edited)
+        
+        self.setCentralWidget(widget)
+        
+    def return_pressed(self):
+        print("Return pressed!")
+        self.centralWidget().setText("BOOM!")
+        
+    def selection_changed(self):
+        print("Selection changed")
+        print(self.centralWidget().selectedText())
+        
+    def text_changed(self, s):
+        print("Text changed...")
+        print(s)
+        
+    def text_edited(self, s):
+        print("Text edited...")
+        print(s)
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您将看到一个带有提示的简单文本输入框。
+
+![Figure16](Figure16.png)
+
+> 图十六：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QLineEdit`
+
+如以上代码所示，您可以通过使用 `.setMaxLength` 方法为文本字段设置最大长度。占位符文本（即在用户输入内容前显示的文本）可通过 `.setPlaceholderText` 方法添加。
+
+`QLineEdit` 为不同的编辑事件提供了一系列信号，包括（用户）按下回车键时、用户选择发生更改时。另外还有两个编辑信号，一个用于框中的文本被编辑的时候，另一个用于文本被更改的时候。这里的区别在于用户编辑和程序更改。只有当用户编辑文本时，才会发送 `textEdited` 信号。
+
+此外，还可以使用输入掩码进行输入验证，以定义支持哪些字符以及在何处支持。这可以应用于字段如下：
+
+```python
+widget.setInputMask('000.000.000.000;_')
+```
+
+上述规则允许使用以句点分隔的3位数字序列，因此可用于验证IPv4地址。
+
+### `QSpinBox` 和 `QDoubleSpinBox`
+
+`QSpinBox` 提供了一个带箭头的小数字输入框，用于增加和减少值。`QSpinBox` 支持整数，而相关的控件`QDoubleSpinBox` 支持浮点数。
+
+![tips](tips.png)
+
+> 双精度(`double`)或双精度浮点数(double float)是 C++ 类型，相当于Python 自己的浮点数(`float`)类型，因此该控件以此命名。
+
+*Listing 21. basic/widgets_7.py*
+
+```python
+import sys
+
+from PyQt6.QtWidgets import QApplication, QMainWindow, QSpinBox
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QSpinBox()
+        # 或者: widget = QDoubleSpinBox()
+        
+        widget.setMinimum(-10)
+        widget.setMaximum(3)
+        # 或者: widget.setRange(-10,3)
+        
+        widget.setPrefix("$")
+        widget.setSuffix("c")
+        widget.setSingleStep(3) # 或者，对于QDoubleSpinBox，使用0.5
+        widget.valueChanged.connect(self.value_changed)
+        widget.textChanged.connect(self.value_changed_str)
+        
+        self.setCentralWidget(widget)
+        
+    def value_changed(self, i):
+        print(i)
+        
+    def value_changed_str(self, s):
+        print(s)
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您将看到一个数字输入框。该值显示前缀和后缀单位，且范围限定在+3到-10之间。
+
+![Figure17](Figure17.png)
+
+> 图十七：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QSpinBox`
+
+上面的演示代码展示了该控件可用的各种功能。
+
+要设置可接受值的范围，您可以使用 `setMinimum` 和 `setMaximum`，或者使用 `setRange` 同时设置两者。值类型的标注支持在数字前添加前缀或在数字后添加后缀，例如使用 `.setPrefix` 和 `.setSuffix` 分别设置货币标记或单位。
+
+点击控件上的向上和向下箭头可增加或减少控件中的值，该值可使用 `.setSingleStep` 进行设置。请注意，这不会对控件可接受的值产生任何影响。
+
+`QSpinBox` 和 `QDoubleSpinBox` 都具有 `.valueChanged` 信号，该信号在其值发生改变时触发。`.valueChanged` 信号发送数字值（整数或浮点数），而单独的 `.textChanged` 信号则将值作为字符串发送，包括前缀和后缀字符。
+
+### `QSlider`
+
+`QSlider` 提供了一个滑动条控件，其内部功能与 `QDoubleSpinBox` 非常相似。它不会以数字形式显示当前值，而是通过滑块在控件长度上的位置来表示。当需要在两个极端值之间进行调整，但不需要绝对精确度时，此控件非常有用。此类控件最常见的用途是音量控制。
+
+还有一个额外的每当滑块移动位置时触发的 `.sliderMoved` 信号，以及一个每当滑块被点击时发出的 `.sliderPressed` 信号。
+
+*Listing 22. basic/widgets_8.py*
+
+```python
+import sys
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow, QSlider
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QSlider()
+        
+        widget.setMinimum(-10)
+        widget.setMaximum(3)
+        # 或者: widget.setRange(-10,3)
+        
+        widget.setSingleStep(3)
+        widget.valueChanged.connect(self.value_changed)
+        widget.sliderMoved.connect(self.slider_position)
+        widget.sliderPressed.connect(self.slider_pressed)
+        widget.sliderReleased.connect(self.slider_released)
+        
+        self.setCentralWidget(widget)
+        
+    def value_changed(self, i):
+        print(i)
+    
+    def slider_position(self, p):
+        print("position", p)
+        
+    def slider_pressed(self):
+        print("Pressed!")
+        
+    def slider_released(self):
+        print("Released")
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您将看到一个滑块控件。拖动滑块即可更改数值。
+
+![Figure18](Figure18.png)
+
+> 图十八：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QSlider`。在 *Windows*  中手柄会扩展到控件的大小。
+
+您还可以通过在创建时传递方向来构建垂直或水平方向的滑块。方向标志在 Qt.命名空间中定义。例如——
+
+```python
+widget.QSlider(Qt.Orientiation.Vertical)
+```
+
+或者——
+
+```python
+widget.QSlider(Qt.Orientiation.Horizontal)
+```
+
+### `QDial`
+
+最后，`QDial` 是一个可旋转的控件，功能与滑块相同，但外观为模拟拨盘。它看起来很不错，但从 UI 角度来看并不特别用户友好。然而，它们通常在音频应用程序中用作现实世界中的模拟拨盘的表示。
+
+*Listing 23. basic/widgets_9.py*
+
+```python
+import sys
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QDial, QMainWindow
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("My App")
+        
+        widget = QDial()
+        widget.setRange(-10, 100)
+        widget.setSingleStep(1)
+        
+        widget.valueChanged.connect(self.value_changed)
+        widget.sliderMoved.connect(self.slider_position)
+        widget.sliderPressed.connect(self.slider_pressed)
+        widget.sliderReleased.connect(self.slider_released)
+        
+        self.setCentralWidget(widget)
+        
+    def value_changed(self, i):
+        print(i)
+        
+    def slider_position(self, p):
+        print("position", p)
+        
+    def slider_pressed(self):
+        print("Pressed!")
+        
+    def slider_released(self):
+        print("Released")
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀**运行它吧！**您会看到一个旋钮，请旋转它以从范围内选择一个数字。
+
+![Figure19](Figure19.png)
+
+> 图十九：在 *Windows*，*macOS* 和 *Linux(Ubuntu)* 上面的`QDial`
+
+这些信号与 `QSlider` 的信号相同，并保留了相同的名称（例如 `.sliderMoved`）。
+
+以上就是对 PyQt6 中可用的 Qt 控件的简要介绍。要查看可用的控件的完整列表，包括所有信号和属性，请参阅 [Qt 文档](http://doc.qt.io/qt-5/)。
+
+### `QWidget`
+
+我们的演示中有一个 QWidget，但您看不到它。我们之前在第一个示例中使用 `QWidge`t 创建了一个空窗口。但 `QWidget` 还可以与 [布局](#6.-布局) 一起用作其他控件的容器，以构建窗口或复合控件。我们将在后面更详细地介绍创建自定义控件(22. 自定义控件)。
+
+请记住 `QWidget`，因为您将会频繁地使用它！
+
+## 6. 布局
+
