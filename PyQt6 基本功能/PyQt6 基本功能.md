@@ -2075,3 +2075,337 @@ app.exec()
 > 图三十六：在 macOS 上，`QTabWidget` 的文档模式设置为 `True`。
 
 ## 7. 操作、工具栏与菜单
+
+接下来，我们将探讨一些常见的用户界面元素，这些元素您可能在许多其他应用程序中都见过——工具栏和菜单。我们还将探索Qt提供的用于减少不同用户界面区域之间重复性的便捷系统—— `QAction`。
+
+### 工具栏
+
+最常见的用户界面元素之一是工具栏。工具栏是由图标和/或文本组成的条形控件，用于在应用程序中执行常见任务，而通过菜单访问这些任务会显得繁琐。它们是许多应用程序中最为常见的用户界面功能之一。尽管一些复杂的应用程序，特别是微软Office套件中的应用程序，已迁移到基于上下文的“功能区”界面，但对于您将创建的大多数应用程序而言，标准工具栏已足够使用。
+
+![Figure37](Figure37.png)
+
+> 图三十七：标准图形用户界面元素——工具栏
+
+Qt 工具栏支持显示图标、文本，还可以包含任何标准的 Qt 控件。但是，对于按钮而言，最好的方法是利用 `QAction` 系统将按钮放置在工具栏上。
+
+让我们先为应用程序添加一个工具栏。
+
+![tips](tips.png)
+
+> 请您加载一个全新的 `myapp.py` 副本，并将其保存为新名称以供本节使用。
+
+在 Qt 中，工具栏是通过 `QToolBar` 类创建的。首先，您需要创建该类的一个实例，然后调用 `QMainWindow` 的 `.addToolbar` 方法。将一个字符串作为第一个参数传递给 `QToolBar` 类，即可设置工具栏的名称，该名称将用于在用户界面中识别该工具栏。
+
+*Listing 36. basic/toolbars_and_menus_1.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        self.addToolBar(toolbar)
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+> 🚀 **运行它吧！** 您会在窗口顶部看到一条细长的灰色条。这就是您的工具栏。右键点击并点击名称即可将其关闭。 
+
+![Figure38](Figure38.png)
+
+> 图三十八：一个带有工具栏的窗口
+
+![caution](caution.png)
+
+> 我无法恢复我的工具栏了！？
+>
+> 不幸的是，一旦您移除了工具栏，现在就没有地方可以右键点击来重新添加它。因此，作为一个通用的规则，您应该要么保留一个不可移除的工具栏，要么提供一个替代界面来开启或关闭工具栏。
+
+让我们让工具栏变得更有趣一些。我们只需添加一个 `QButton` 控件即可，但 Qt 中还有一种更好的方法可以为您提供一些很酷的功能——那就是通过 `QAction`。`QAction` 是一个提供描述抽象用户界面的方法的类。这意味着，您可以在一个对象中定义多个界面元素，并通过与该元素交互的效果将它们统一起来。例如，工具栏和菜单中通常都会出现一些功能，例如“编辑→剪切”，它既存在于“编辑”菜单中，也以剪刀图标的形式出现在工具栏上，同时还支持键盘快捷键 `Ctrl-X`（macOS 上为 `Cmd-X`）.
+
+如果没有 `QAction`，您必须在多个地方定义此操作。但使用 `QAction` ，您就可以只定义一个 `QAction`，定义触发操作，然后将此操作添加到菜单和工具栏中。每个 `QAction` 都有名称、状态消息、图标和可连接的信号（以及更多内容）。
+
+请参阅下面的代码，了解如何添加您的第一个 `QAction`。
+
+*Listing 37. basic/toolbars_and_menus_2.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        self.addToolBar(toolbar)
+
+        button_action = QAction("Your button", self)
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        toolbar.addAction(button_action)
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+首先，我们创建一个函数来接受来自 `QAction` 的信号，以便查看它是否正常工作。接下来，我们定义 `QAction` 本身。在创建实例时，我们可以传递一个动作标签和/或图标。你还必须传递任何 `QObject` 作为动作的父对象——这里我们传递 self 作为对主窗口的引用。对于 `QAction` 来说，父对象作为最后一个参数传递，这有点奇怪。
+
+接下来，我们可以选择设置一个状态提示——一旦有状态栏，该文本就会显示在状态栏上。最后，我们将 `.triggered` 信号连接到自定义函数。每当 `QAction` 被“触发”（或激活）时，该信号就会触发。
+
+> 🚀 **运行它吧！** 您应该看到带有您定义的标签的按钮。如果您点击它，我们的自定义函数就会触发“点击”事件并返回按钮的状态。
+
+![Figure39](Figure39.png)
+
+> 图三十九：我们的 `QAction` 按钮在工具栏中显示出来了
+
+![tips](tips.png)
+
+> 为什么信号总是为假？
+>
+> 传递的信号表明该操作是否被选中，而由于我们的按钮不能被选中——只能点击——因此它总是为假。这就像我们之前看到的 `QPushButton` 一样。
+
+让我们添加一个状态栏。
+
+我们通过调用 `QStatusBar` 并将其结果传递给 `.setStatusBar` 来创建状态栏对象。由于我们不需要修改状态栏设置，因此可以在创建时直接将其传递进去。我们可以在一行代码中创建并定义状态栏：
+
+*Listing 38. basic/toolbars_and_menus_3.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        self.addToolBar(toolbar)
+
+        button_action = QAction("Your button", self)
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        toolbar.addAction(button_action)
+        
+        self.setStatusBar(QStatusBar(self))
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+> 🚀 **运行它吧！** 将鼠标悬停在工具栏按钮上，您将看到状态文本在窗口底部的状态栏中显示。
+
+![Figure40](Figure40.png)
+
+> 图四十：状态栏文本会在我们悬停操作时更新。
+
+接下来，我们将把 `QAction` 设置为可切换的——点击一次会将其打开，再次点击会将其关闭。要实现这一点，我们只需在 `QAction` 对象上调用 `setCheckable(True)` 方法。
+
+*Listing 39. basic/toolbars_and_menus_4.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        self.addToolBar(toolbar)
+
+        button_action = QAction("Your button", self)
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+        toolbar.addAction(button_action)
+        
+        self.setStatusBar(QStatusBar(self))
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+> 🚀 **运行它吧！** 请您点击按钮，查看它从选中状态切换到未选中状态。请注意，我们现在创建的自定义槽函数交替输出 `True` 和 `False`。
+
+![Figure41](Figure41.png)
+
+> 图四十一：工具栏按钮已启用
+
+![tips](tips.png)
+
+> `.toggled` 信号
+>
+> 还有一个 `.toggled` 信号，只有在按钮被切换时才会发出信号。但效果相同，因此基本上毫无意义。
+
+目前看起来有点无聊，所以让我们给按钮添加一个图标。为此，我推荐设计师Yusuke Kamiyamane设计的 [Fugue图标集](http://p.yusukekamiyamane.com/)。这是一个非常棒的16x16像素图标集，可以为你的应用程序增添专业气质。该图标集可免费使用，只需在分发应用程序时注明出处即可——不过我相信，如果条件允许，设计师也会很乐意收到你的捐赠。
+
+![Figure42](Figure42.png)
+
+> 图四十二：设计师 Yusuke Kamiyamane 的作品：Fugue图标集
+
+从图像集（在此示例中我选择了文件 `bug.png`）中选择一张图像，并将它复制到与源代码相同的文件夹中。我们可以创建一个 `QIcon` 对象，通过将文件路径传递给该类来实现。我们使用在 [“控件”](#5.-控件) 一章中学习到的 `basedir` 技术加载图标。这确保无论您从何处运行脚本，都能找到该文件。最后，要将图标添加到 `QAction`（以及按钮）中，只需在创建 `QAction` 时将其作为第一个参数传递即可。
+
+您还需要让工具栏知道你的图标大小，否则您的图标周围会出现大量填充。您可以通过调用 `.setIconSize()` 并传入一个 `QSize` 对象来实现这一点。
+
+*Listing 40. basic/toolbars_and_menus_5.py*
+
+```python
+import os
+import sys
+
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtWidgets import (
+    QApplication,
+    QLabel,
+    QMainWindow,
+    QStatusBar,
+    QToolBar,
+)
+
+basedir = os.path.dirname(__file__)
+
+# tag::MainWindow[]
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
+
+        button_action = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your button",
+            self,
+        )
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+        toolbar.addAction(button_action)
+        
+        self.setStatusBar(QStatusBar(self))
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+        
+        
+# end::MainWindow[]
+
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+> 🚀 **运行它吧！** `QAction` 现在以图标形式显示。所有功能均与之前完全相同。
+
+![Figure43](Figure43.png)
+
+> 图四十三：我们带有一个图标的操作按钮
+
+请注意，Qt 使用操作系统的默认设置来确定是否在工具栏中显示图标、文本或图标和文本。但您可以使用 `.setToolButtonStyle` 覆盖此设置。该槽接受来自 `Qt.`命名空间的以下任何标志：
+
+| 标志                                          | 行为                                 |
+| --------------------------------------------- | ------------------------------------ |
+| `Qt.ToolButtonStyle.ToolButtonIconOnly`       | 仅有图标，没有文本                   |
+| `Qt.ToolButtonStyle.ToolButtonTextOnly`       | 仅有文本，没有图标                   |
+| `Qt.ToolButtonStyle.ToolButtonTextBesideIcon` | 同时存在文本和图标，且文本在图标旁边 |
+| `Qt.ToolButtonStyle.ToolButtonTextUnderIcon`  | 同时存在文本和图标，且文本在图标下面 |
+| `Qt.ToolButtonStyle.ToolButtonFollowStyle`    | 跟随本地桌面的样式                   |
+
+![tips](tips.png)
+
+> 我应该使用哪种样式？
+>
+> 默认值为 `Qt.ToolButtonStyle.ToolButtonFollowStyle`，这意味着您的应用程序将默认遵循应用程序运行所在桌面的标准/全局设置。这通常被推荐以使您的应用程序尽可能地与**系统风格**一致。
+
+接下来，我们将向工具栏添加一些其他元素。我们将添加第二个按钮和复选框控件。如前所述，您可以在此处添加任何控件，因此请随意发挥创意。
+
+*Listing 41. basic/toolbars_and_menus_6.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
+
+        button_action = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your button",
+            self,
+        )
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+        toolbar.addAction(button_action)
+
+        toolbar.addSeparator()
+
+        button_action2 = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your button2",
+            self,
+        )
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        toolbar.addAction(button_action2)
+        
+        toolbar.addWidget(QLabel("Hello"))
+        toolbar.addWidget(QCheckBox())
+
+        self.setStatusBar(QStatusBar(self))
+
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+> 🚀 **运行它吧！** 现在您可以看到多个按钮和一个复选框。
+
+![Figure44](Figure44.png)
+
+> 图四十四：带有一个操作和两个控件的工具栏。
+
+### 菜单
+
