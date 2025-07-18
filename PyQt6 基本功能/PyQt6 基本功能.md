@@ -2409,3 +2409,371 @@ class MainWindow(QMainWindow):
 
 ### 菜单
 
+菜单是用户界面的另一个标准组件。通常它们位于窗口顶部，或在macOS系统中位于屏幕顶部。它们允许访问所有标准应用程序功能。存在一些标准菜单——例如文件、编辑、帮助。菜单可以嵌套以创建功能的分层树结构，并且它们通常支持并显示键盘快捷键以快速访问其功能。
+
+![Figure45](Figure45.png)
+
+> 图四十五：标准图形用户界面元素——菜单
+
+要创建菜单，我们需要在 `QMainWindow` 上调用 `.menuBar()` 方法来创建菜单栏。我们通过调用 `.addMenu()` 方法并传入菜单名称来在菜单栏上添加菜单。我将其命名为 `‘&File’`。这里的 `&` 符号定义了快捷键，按下 Alt 键时可快速跳转到该菜单。
+
+![caution](caution.png)
+
+> macOS 上的快捷键
+>
+> 这在 macOS 上是不可见的。请注意，这与键盘快捷键不同——我们稍后会详细介绍。
+
+这就是操作功能发挥作用的地方。我们可以复用已有的 `QAction` 来为菜单添加相同的功能。要添加操作，只需调用 `.addAction` 并传入我们定义的操作之一。
+
+*Listing 42. basic/toolbars_and_menus_7.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
+
+        button_action = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "&Your button",
+            self,
+        )
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+        toolbar.addAction(button_action)
+
+        toolbar.addSeparator()
+
+        button_action2 = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your &button2",
+            self,
+        )
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        toolbar.addAction(button_action2)
+
+        toolbar.addWidget(QLabel("Hello"))
+        toolbar.addWidget(QCheckBox())
+        
+        self.setStatusBar(QStatusBar(self))
+        
+        menu = self.menuBar()
+        
+        file_menu = menu.addMenu("&File")
+        file_menu.addAction(button_action)
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+点击菜单中的选项时，您会发现该选项可切换状态——它继承了 `QAction` 的特性。
+
+![Figure46](Figure46.png)
+
+> 图四十六：窗口上显示的菜单 — 在 *macOS* 上，该菜单将位于屏幕顶部。
+
+让我们在菜单中添加更多内容。这里我们将为菜单添加一个分隔符，它将在菜单中显示为一条水平线，然后添加我们创建的第二个 `QAction` 。
+
+*Listing 43. basic/toolbars_and_menus_8.py*
+
+```	python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
+
+        button_action = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "&Your button",
+            self,
+        )
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+        toolbar.addAction(button_action)
+
+        toolbar.addSeparator()
+
+        button_action2 = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your &button2",
+            self,
+        )
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        toolbar.addAction(button_action2)
+
+        toolbar.addWidget(QLabel("Hello"))
+        toolbar.addWidget(QCheckBox())
+        
+        self.setStatusBar(QStatusBar(self))
+        
+        menu = self.menuBar()
+        
+        file_menu = menu.addMenu("&File")
+        file_menu.addAction(button_action)
+        file_menu.addSeparator()
+        file_menu.addAction(button_action2)
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+> 🚀 **运行它吧！** 您应该看到两个菜单项，它们之间应该会有一条分隔线。
+
+![Figure47](Figure47.png)
+
+> 图四十七：我们的操作在菜单中显示出来了
+
+您还可以使用“&”符号为菜单添加快捷键，以便在菜单打开时，只需按下一个键即可跳转到菜单项。同样，此功能在 macOS 上不适用。
+
+要添加子菜单，只需通过调用父菜单的 addMenu() 方法创建一个新菜单。然后您可以像往常一样向其中添加操作项。例如：
+
+*Listing 44. basic/toolbars_and_menus_9.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
+
+        button_action = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "&Your button",
+            self,
+        )
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+        toolbar.addAction(button_action)
+
+        toolbar.addSeparator()
+
+        button_action2 = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your &button2",
+            self,
+        )
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        toolbar.addAction(button_action2)
+
+        toolbar.addWidget(QLabel("Hello"))
+        toolbar.addWidget(QCheckBox())
+        
+        self.setStatusBar(QStatusBar(self))
+        
+        menu = self.menuBar()
+        
+        file_menu = menu.addMenu("&File")
+        file_menu.addAction(button_action)
+        file_menu.addSeparator()
+        
+        file_submenu = file_menu.addMenu("Submenu")
+        file_submenu.addAction(button_action2)
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+如果您现在运行这个示例，并将鼠标悬停在文件菜单中的子菜单条目上，您会看到一个单条目子菜单出现，其中包含我们的第二个操作。您可以继续向这个子菜单添加条目，与添加顶级菜单条目时的方式相同。
+
+![Figure48](Figure48.png)
+
+> 图四十八：文件菜单中的嵌套子菜单。
+
+最后，我们将为 `QAction` 添加一个键盘快捷键。您可以通过调用 `setKeySequence()` 并传入键盘序列来定义键盘快捷键。任何已定义的键盘序列都将显示在菜单中。
+
+![tips](tips.png)
+
+> 隐藏的快捷键
+>
+> 请注意，键盘快捷键与`QAction` 相关联，无论 `QAction` 是否被添加到菜单或工具栏中，它都有效。
+
+键序列可以通过多种方式定义——作为文本传递、使用Qt 命名空间中的键名，或者使用Qt 命名空间中定义的键序列。请您尽可能使用后一种方式，以确保符合操作系统标准。
+
+以下是完成后的代码，显示了工具栏按钮和菜单。
+
+*Listing 45. basic/toolbars_and_menus_end.py*
+
+```python
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        label = QLabel("Hello!")
+        # Qt 命名空间有许多用于自定义控件的属性。参见：http://doc.qt.io/qt-5/qt.html
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # 设置窗口的中央控件。默认情况下，控件将扩展以占据窗口中的所有空间。
+        self.setCentralWidget(label)
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        self.addToolBar(toolbar)
+
+        button_action = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "&Your button",
+            self,
+        )
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        button_action.setCheckable(True)
+
+        # 您可以使用键盘名称输入快捷键，例如Ctrl+p
+        # Qt.命名空间标识符（例如 Qt.CTRL + Qt.Key_P）
+        # 或系统无关标识符（例如 QKeySequence.Print）
+        button_action.setShortcut(QKeySequence("Ctrl+p"))
+        toolbar.addAction(button_action)
+
+        toolbar.addSeparator()
+
+        button_action2 = QAction(
+            QIcon(os.path.join(basedir, "bug.png")),
+            "Your &button2",
+            self,
+        )
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        toolbar.addAction(button_action)
+
+        toolbar.addWidget(QLabel("Hello"))
+        toolbar.addWidget(QCheckBox())
+        self.setStatusBar(QStatusBar(self))
+
+        menu = self.menuBar()
+        
+        file_menu = menu.addMenu("&File")
+        file_menu.addAction(button_action)
+        
+        file_menu.addSeparator()
+        
+        file_submenu = file_menu.addMenu("Submenu")
+        
+        file_submenu.addAction(button_action2)
+        
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
+```
+
+### 菜单与工具栏的组织管理
+
+如果用户无法找到应用程序的操作，他们就无法充分发挥应用程序的全部功能。让操作易于发现是创建用户友好型应用程序的关键。一个常见的错误是试图通过在应用程序的各个地方添加操作来解决这个问题，结果反而让用户感到困惑和不知所措。
+
+请您将常见且必要的操作放在首位，确保它们易于查找和回忆。想想大多数编辑应用程序中的“文件”>“新建”选项。它位于“文件”菜单顶部，并绑定了一个简单的键盘快捷键 **Ctrl + N**。如果 “新建文档…” **需要通过“文件”>“常用操作”>“文件操作”>“当前文档”>“新建”**或快捷键 **Ctrl +Alt + J** 才能访问，用户将难以找到它。
+
+![Special1](Special1.png)
+
+> Qt Creator 中的文件菜单部分，请注意常见操作位于顶部，不常用的操作则位于下方。
+
+如果您把“文件”>“保存”菜单隐藏得像这样，您的用户就更不可能保存他们的作品，而更有可能丢失它们——这是字面意义上和比喻意义上的！请您看看您电脑上现有的应用程序，来获取灵感。但您要保持批判性眼光，因为市面上充斥着大量设计糟糕的软件。
+
+请您在菜单和工具栏中使用逻辑分组，这样可以更轻松地找到所需内容。在少数几个选项中找到某物比在长列表中更容易。
+
+![Special2](Special2.png)
+
+> Qt Designer 中的分组工具栏
+
+避免在多个菜单中重复相同操作，因为这会让它们的用途变得模糊——“这些操作是不是做同样的事情？”——即使它们的标签完全相同。最后，不要试图通过动态隐藏/移除菜单项来简化菜单。这会导致用户在寻找不存在的选项时感到困惑“……刚才还在这里”。不同状态应通过禁用菜单项、使用独立窗口、清晰区分的界面模式或对话框来表示。
+
+---
+
+**请**将菜单按层次结构组织，并逻辑地分组操作。  
+
+**请**将最常用的功能复制到工具栏上。
+
+**请**在菜单中禁用无法使用的项目。  
+
+**请勿**将同一操作添加到多个菜单中。  
+
+**请勿**将所有菜单操作都添加到工具栏上。  
+
+**请勿**在不同位置使用相同操作的不同名称或图标。  
+
+**请勿**从菜单中删除项目——而是禁用它们。
+
+## 8. 对话框
+
+对话框是图形用户界面中的有用组件，可让您与用户进行交流（因此得名“对话框”）。它们通常用于文件打开/保存、设置、首选项或应用程序主用户界面中无法容纳的功能。它们是小型模态（或阻塞）窗口，会始终显示在主应用程序窗口前，直到被关闭。Qt实际上为最常见的使用场景提供了多种“特殊”对话框，使您能够提供平台原生的用户体验，从而提升用户体验。
+
+![Figure49](Figure49.png)
+
+> 图四十九：标准图形用户界面功能——搜索对话框
+
+![Figure50](Figure50.png)
+
+> 图五十：标准图形用户界面功能——文件打开对话框
+
+在 Qt 中，对话框由 `QDialog` 类处理。要创建一个新的对话框只需创建一个 `QDialog` 类型的对象，并将其父控件（例如`QMainWindow`）作为其父对象传递给该对象即可。
+
+让我们创建自己的 `QDialog`。首先，我们从一个简单的框架应用程序开始，该应用程序有一个按钮，该按钮与槽方法相连。
+
+*Listing 46. basic/dialogs_start.py*
+
+```python
+import sys
+
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        button = QPushButton("Press me for a dialog!")
+        button.clicked.connect(self.button_clicked)
+        self.setCentralWidget(button)
+        
+    def button_clicked(self, s):
+        print("click", s)
+        
+        
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
+```
+
+在槽 `button_clicked`（接收按钮按下的信号）中，我们创建对话框实例，并将我们的 `QMainWindow` 实例作为父窗口传递。这将使对话框成为 `QMainWindow` 的模态窗口。这意味着对话框将完全阻止与父窗口的交互。
