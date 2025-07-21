@@ -29,7 +29,7 @@ cd Qt6-book-translation
 - ❌ 禁止商业用途
 - ⚠️ 衍生作品必须采用相同授权
 
-> 📌 完整条款详见 [LICENSE](LICENSE) 文件
+> 📌 完整条款详见 [LICENSE](https://github.com/Drtxdt/Qt6-book-translation/blob/main/LICENSE) 文件
 
 目前我们已经向作者发出电子邮件进行申请授权，我们将实时更新进度
 
