@@ -34,6 +34,15 @@ export default defineConfig({
           { text: '9. 窗口', link: '/BasicPyQt6Features/9' },
           { text: '10. 事件', link: '/BasicPyQt6Features/10' }
         ]
+      },
+
+      {
+        text: 'Qt Designer(Qt设计师)',
+        items:[
+          { text: '11. 下载 Qt Designer', link: '/QtDesigner/11' },
+          { text: '12. 开始使用 Qt Designer', link: '/QtDesigner/12' }
+          
+        ]
       }
     ],
 
