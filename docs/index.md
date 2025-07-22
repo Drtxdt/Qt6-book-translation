@@ -9,6 +9,6 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /Introduction
+      link: /Introduction/1
 ---
 
