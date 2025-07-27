@@ -6,7 +6,7 @@ hero:
   name: "Create GUI Applications with Python  Qt6 (5th Edition, PyQt6)"
   text: "非官方中文翻译"
   tagline: 一份十分生动形象的PyQt6教程，Python小白也能秒懂！持续更新中~
-  image: cover.png
+  image: /cover.png
   actions:
     - theme: brand
       text: 开始阅读
