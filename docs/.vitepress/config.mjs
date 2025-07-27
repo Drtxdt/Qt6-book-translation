@@ -43,6 +43,16 @@ export default defineConfig({
           { text: '12. 开始使用 Qt Designer', link: '/QtDesigner/12' }
           
         ]
+      },
+
+      {
+        text: '主题设计',
+        items:[
+          { text: '13. 样式', link: '/Theming/13' },
+          { text: '14. 调色板', link: '/Theming/14' },
+          { text: '15. 图标', link: '/Theming/15' },
+          { text: '16. Qt 样式表 (QSS)', link: '/Theming/16' }
+        ]
       }
     ],
 
