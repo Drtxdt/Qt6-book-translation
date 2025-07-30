@@ -53,6 +53,16 @@ export default defineConfig({
           { text: '15. 图标', link: '/Theming/15' },
           { text: '16. Qt 样式表 (QSS)', link: '/Theming/16' }
         ]
+      },
+
+      {
+        text: '模型视图架构',
+        items: [
+          { text: '17. 模型视图架构 —— 模型视图控制器', link: '/ModelViewArchitecture/17' },
+          { text: '18. 一个简单的模型视图——待办事项列表', link: '/ModelViewArchitecture/18' },
+          { text: '19. 使用numpy和pandas处理模型视图中的表格数据', link: '/ModelViewArchitecture/19' },
+          { text: '20. 使用Qt模型查询SQL数据库', link: '/ModelViewArchitecture/20' }
+        ]
       }
     ],
 
