@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "以PyQt6构建图形用户界面程序",
-  description: "非官方中文翻译",
+  title: "十分生动有趣的PyQt6中文教程！",
+  description: "以PyQt6构建图形用户界面程序的非官方中文翻译",
   base: '/Qt6-book-translation/',
   lastUpdated: true,
   themeConfig: {
