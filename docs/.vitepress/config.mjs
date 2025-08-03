@@ -63,6 +63,15 @@ export default defineConfig({
           { text: '19. 使用numpy和pandas处理模型视图中的表格数据', link: '/ModelViewArchitecture/19' },
           { text: '20. 使用Qt模型查询SQL数据库', link: '/ModelViewArchitecture/20' }
         ]
+      },
+
+      {
+        text: '自定义控件',
+        items: [
+          { text: '21. Qt 中的位图图形', link: '/CustomWidgets/21' },
+          { text: '22. 创建自定义控件', link: '/CustomWidgets/22' },
+          { text: '23. 在 Qt Designer 中使用自定义控件', link: '/CustomWidgets/23' }
+        ]
       }
     ],
 
