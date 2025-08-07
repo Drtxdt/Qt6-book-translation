@@ -72,6 +72,17 @@ export default defineConfig({
           { text: '22. 创建自定义控件', link: '/CustomWidgets/22' },
           { text: '23. 在 Qt Designer 中使用自定义控件', link: '/CustomWidgets/23' }
         ]
+      },
+
+      {
+        text: '并发执行',
+        items:[
+          { text: '24. 线程与进程简介', link: '/ConcurrentExecution/24' },
+          { text: '25. 使用线程池', link: '/ConcurrentExecution/25' },
+          { text: '26. QRunnable 示例', link: '/ConcurrentExecution/26' },
+          { text: '27. 长期运行的线程', link: '/ConcurrentExecution/27' },
+          { text: '28. 运行外部命令及进程', link: '/ConcurrentExecution/28' }
+        ]
       }
     ],
 
