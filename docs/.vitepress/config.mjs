@@ -83,6 +83,14 @@ export default defineConfig({
           { text: '27. 长期运行的线程', link: '/ConcurrentExecution/27' },
           { text: '28. 运行外部命令及进程', link: '/ConcurrentExecution/28' }
         ]
+      },
+
+      {
+        text: '数据可视化',
+        items: [
+          { text: '29. 使用 PyQtGraph 进行数据可视化', link: '/Plotting/29' },
+          { text: '30. 使用 Matplotlib 进行数据可视化', link: '/Plotting/30' },
+        ]
       }
     ],
 
