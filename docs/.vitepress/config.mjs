@@ -91,6 +91,18 @@ export default defineConfig({
           { text: '29. 使用 PyQtGraph 进行数据可视化', link: '/Plotting/29' },
           { text: '30. 使用 Matplotlib 进行数据可视化', link: '/Plotting/30' },
         ]
+      },
+
+      {
+        text: 'PyQt6的更多功能',
+        items: [
+          { text: '31. 计时器', link: '/FurtherPyQt6Features/31' },
+          { text: '32. 自定义信号', link: '/FurtherPyQt6Features/32' },
+          { text: '33. 使用相对路径', link: '/FurtherPyQt6Features/33' },
+          { text: '34. 系统托盘与 macOS 菜单', link: '/FurtherPyQt6Features/34' },
+          { text: '35. 枚举与 Qt 命名空间', link: '/FurtherPyQt6Features/35' },
+          { text: '36. 使用命令行参数', link: '/FurtherPyQt6Features/36' }
+        ]
       }
     ],
 
