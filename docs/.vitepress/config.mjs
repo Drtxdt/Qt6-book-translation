@@ -103,6 +103,16 @@ export default defineConfig({
           { text: '35. 枚举与 Qt 命名空间', link: '/FurtherPyQt6Features/35' },
           { text: '36. 使用命令行参数', link: '/FurtherPyQt6Features/36' }
         ]
+      },
+
+      {
+        text: '打包与分发',
+        items:[
+          { text: '37. 使用PyInstaller进行打包', link: '/PackagingAndDistribution/37' },
+          { text: '38. 使用InstallForge创建Windows安装程序', link: '/PackagingAndDistribution/38' },
+          { text: '39. 创建 macOS 磁盘映像安装程序', link: '/PackagingAndDistribution/39' },
+          { text: '40. 创建一个Linux软件包', link: '/PackagingAndDistribution/40' }
+        ]
       }
     ],
 
