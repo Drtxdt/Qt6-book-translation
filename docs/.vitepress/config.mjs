@@ -113,6 +113,14 @@ export default defineConfig({
           { text: '39. 创建 macOS 磁盘映像安装程序', link: '/PackagingAndDistribution/39' },
           { text: '40. 创建一个Linux软件包', link: '/PackagingAndDistribution/40' }
         ]
+      },
+
+      {
+        text: '应用程序示例',
+        items: [
+          { text: '41. Mozzarella Ashbadger', link: '/ExampleApplications/41' },
+          { text: '42. Moonsweeper', link: '/ExampleApplications/42' }
+        ]
       }
     ],
 
