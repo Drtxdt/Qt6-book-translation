@@ -121,6 +121,16 @@ export default defineConfig({
           { text: '41. Mozzarella Ashbadger', link: '/ExampleApplications/41' },
           { text: '42. Moonsweeper', link: '/ExampleApplications/42' }
         ]
+      },
+
+      {
+        text: '附录',
+        items:[
+          { text: '附录A：安装 PyQt6', link: '/Appendix/A' },
+          { text: '附录B：将 C++ 示例翻译为 Python', link: '/Appendix/B' },
+          { text: '附录C：PyQt6 和 PySide6 两者有何不同？', link: '/Appendix/C' },
+          { text: '附录D：下一步是什么？' }
+        ]
       }
     ],
 
