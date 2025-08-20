@@ -16,6 +16,6 @@ hero:
       link: http://www.pythonguis.com/d/pyqt6-source.zip
     - theme: alt
       text: 下载PDF版
-      link: https://github.com/Drtxdt/Qt6-book-translation/releases
+      link: https://github.com/Drtxdt/Qt6-book-translation/releases/download/v1.0/book.pdf
 ---
 
