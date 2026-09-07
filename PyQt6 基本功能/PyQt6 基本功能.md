@@ -341,10 +341,10 @@ class MainWindow(QMainWindow):
         button.setCheckable(True)
         button.clicked.connect(self.the_button_was_clicked)
         
-		# 设置窗口的中心控件
+        # 设置窗口的中心控件
         self.setCentralWidget(button)
         
-	def the_button_was_clicked(self):
+    def the_button_was_clicked(self):
         print("Clicked!")
         
         
@@ -379,9 +379,9 @@ Clicked!
 import sys
 
 from PyQt6.QtWidgets import (
-	QApplication,
-	QMainWindow,
-	QPushButton,
+    QApplication,
+    QMainWindow,
+    QPushButton,
 ) #1
 
 class MainWindow(QMainWindow):
